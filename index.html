@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Object Prototypes | COMP1073 Client-Side JavaScript</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="css/normalize.css" rel="stylesheet" />
+	<link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- STEP 1: Build out a HEADER and a SECTION element -->
+	<header>
+        <h1>The weird deals</h1>
+        <h2>The list is retrieving information from my github pages link</h2>
+	</header>
+	<section>
+	
+
+	</section>
+	<footer>
+
+	</footer>
+	<script>
+		/*Bind the HEADER and the SECTION elements above to variables */
+		let header = document.querySelector('header');
+		let section = document.querySelector('section');
+
+		// Store JSON URL in a variable
+		let requestURL = "https://harkirat75893.github.io/json_file/weird_deals.json";
+		
+		// Create a new XHR object 
+		let request = new XMLHttpRequest();
+
+		// open a new request using the open method of XHR object 
+		request.open("GET", requestURL);
+		//set up the response type 
+		request.responseType = "json";
+		
+		//send the request 
+		request.send();
+
+		//set up an event handler to listen for onload, so we don't do anything until the data return 
+		request.onload = function (){
+			weird_deals = request.response;
+			console.log(weird_deals);
+			weirdDeals(weird_deals);
+		};
+
+		//topFlavours functions
+		function weirdDeals(jsonObj) {
+			let weirdDeals = jsonObj["weirdDeals"];
+		
+		//create a for loop to loop through the array.  By creating several new elements.
+		for (let i = 0; i < weirdDeals.length; i++) {
+			let article = document.createElement("article");
+			let h2 = document.createElement("h2");
+			let img = document.createElement("img");
+			let p1 = document.createElement("p");
+			let list = document.createElement("ul");
+			//setting the attributes
+			img.setAttribute("src", "Images/" + weirdDeals[i].image);
+			img.setAttribute("alt", weirdDeals[i].item);
+			h2.textContent = weirdDeals[i].item;
+			p1.textContent = weirdDeals[i].price;
+			
+			article.appendChild(img);
+			article.appendChild(h2);
+			article.appendChild(p1);
+			article.appendChild(list);
+			section.appendChild(article);
+		}
+		
+	}
+	
+		</script>
+	</body>
+</html>
